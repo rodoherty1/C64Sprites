@@ -13,17 +13,18 @@ JOYSTICK                = $DC00
   ; lda #0
   ; sta $d021
 
-  lda #13
+  lda #13 
   sta $07F8
+
   lda #1
   sta SPRITE_ENABLE_REGISTER
   sta SPRITE0_COLOUR_REGISTER
 
-  ldx #62
-  lda #$FF
+  ldx #62   ; Counter from 62 to 0 for each byte in the sprite (3 * 21 bytes in a sprite)
+  lda #$FF  ; Enable all pixels in this particular sprite-byte
 
 loop:
-  sta 832,x   ; (Bank0 * 16384) + (#62 * 64bytes) = $0832 ($0801-$9FFF is default basic area) 
+  sta 832,x ; (Bank0 * 16384) + (#13 * 64bytes) = $0832 ($0801-$9FFF is default basic area) 
   dex
   bpl loop
 
